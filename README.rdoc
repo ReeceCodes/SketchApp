@@ -1,0 +1,9 @@
+== README
+
+This is pretty much a clone of etch a sketch. It is in javascript because that is what I am able to toy with during downtime.
+
+Some ideas for improving:
+-slow down the draw so that a picture can be seen being drawn
+-save off a drawing
+-use ruby/rails instead of html
+-actually test on a phone...that was half the reason it's made that way
