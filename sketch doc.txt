@@ -1,0 +1,16 @@
+Etch a sketch clone with canvas.
+
+z/x left/right buttons (left), create image of which direction the 'button' would turn
+n/m left/right buttons (right), show button turning
+
+spacebar for double speed?
+
+button to shake. make it shake and degrade?
+
+have a record option to keep a record of keypress so you could redraw (or something like that). not saving on server anywhere just local or a textbox or something that you could paste into and a button to run it (paste / draw)
+
+might have to save something to server if you wanted to have a 'share' your drawing so others could do the 'redraw' option
+
+starting position in center, doesn't move when shaking so that's how you change position
+
+js, canvas, at least 2 buttons for click and key events
