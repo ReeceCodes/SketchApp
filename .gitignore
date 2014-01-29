@@ -14,10 +14,3 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-
-#ignore all for now
-*
-
-#don't ignore this for now
-!EtchASketch.js
-!sketch doc.txt
