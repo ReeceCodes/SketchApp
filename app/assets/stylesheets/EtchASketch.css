@@ -1,0 +1,151 @@
+﻿/* canvas area, the div around it doesn't do anything but oh well */
+.canvas-holder 
+{
+  max-width: 70%;
+  max-height: 70%;
+    }
+    
+canvas
+{
+    border:1px solid black;
+    }
+    
+.footer
+{
+    height:10%;
+    min-height:10px;
+    clear:both;
+    }
+  
+/* buttons, everything with images/buttons below canvas */
+.commands 
+{
+    overflow:scroll-y;
+    height:10%;
+    width:100%;
+    }
+    
+.leftright 
+{
+    float:right;
+    position:relative;
+    }
+    
+.updown
+{
+    float:left;
+    position:relative;
+    }
+    
+.controls 
+{
+    width:50%;
+    height:20%;
+    min-height:150px;
+    clear:both;
+    }
+    
+.arrowsleftright
+{
+position:relative;
+left:-5px;
+top:-10px;
+    }
+    
+.arrowsupdown
+{
+position:relative;
+left:10px;
+    }
+    
+.rotate
+    {
+-webkit-transform: rotate(90deg); 
+-moz-transform: rotate(90deg); 
+-o-transform: rotate(90deg);
+-ms-transform: rotate(90deg); 
+        }
+    
+div > img /* first time using these selectors so I got that going for me (images as child of div) */
+{
+    width:50%;
+    height:50%;
+    }
+  
+.udbutton, .lrbutton
+{
+    clear:both;
+    min-height:100px;
+    margin-left:15px;
+    }
+    
+.ubutton, .lbutton
+{
+    
+    background: transparent url("../Images/buttons.png") no-repeat;
+    background-position: -100px 0;
+    min-height:100px;
+    min-width:49px;
+    max-width:50px;
+    float:left;
+    }
+    
+.dbutton, .rbutton
+{
+    
+    background: transparent url("../Images/buttons.png") no-repeat;
+    background-position: -150px 0;
+    min-height:100px;
+    min-width:49px;
+    max-width:50px;
+    float:left;
+   
+    }
+
+    
+.ubutton:hover /* and lbutton opposite for others */
+, .lbutton:hover
+{
+    background-position: 0px 0;
+    min-height:100px;
+    min-width:49px;
+    max-width:50px;
+    }
+    
+.dbutton:hover, .rbutton:hover
+{
+    background-position: -50px 0;
+    min-height:100px;
+    min-width:49px;
+    max-width:50px;
+    }
+
+
+/* clear button */
+.clearButton
+{
+  float:left;
+  clear:both;
+  width:100%;
+    }
+    
+.lefty
+{
+    float:left;
+    min-width:25%;
+    width:10px;
+    height:1px;
+    }
+    
+.righty
+{
+    float:right;
+    min-width:45%;
+    width:10px;
+    height:1px;
+    }
+    
+.middle
+{
+    float:left;
+    }
