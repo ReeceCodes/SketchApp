@@ -82,7 +82,7 @@ div > img /* first time using these selectors so I got that going for me (images
 .ubutton, .lbutton
 {
     
-    background: transparent url("../Images/buttons.png") no-repeat;
+    background: transparent url("../assets/buttons.png") no-repeat;
     background-position: -100px 0;
     min-height:100px;
     min-width:49px;
@@ -93,7 +93,7 @@ div > img /* first time using these selectors so I got that going for me (images
 .dbutton, .rbutton
 {
     
-    background: transparent url("../Images/buttons.png") no-repeat;
+    background: transparent url("../assets/buttons.png") no-repeat;
     background-position: -150px 0;
     min-height:100px;
     min-width:49px;
