@@ -1,6 +1,6 @@
 ﻿//this is the most basic, what about saving off the img? what about redrawing but slower so you could see it? currently button redraw is as fast as the loop that reads it.
 var theCircleOfStuff;
-var t;
+var t = [];
 
 function circle(x, y) {
         this.x = x;
@@ -59,12 +59,17 @@ function IMGClick(div, e) {
     function IMGDown(div, e) {
         window.addEventListener("mouseup", StopClicking, false);
        
-        t = setInterval(function () { IMGClick(div, e); }, 30); //since you can't pass params directly use anonymous function and call within where you can, at least that's how I remembered :P
+        t[t.length] = setInterval(function () { IMGClick(div, e); }, 30); //since you can't pass params directly use anonymous function and call within where you can, at least that's how I remembered :P
 
     }
 
     function StopClicking() {
-        clearInterval(t);
+	//added loop to get all intervals stopped because of dragging and touch
+        while (t.length > 0){
+		clearInterval(t[t.length-1]);
+		t.pop();
+		}
+		
         window.removeEventListener("mouseup", StopClicking);
         
     }
@@ -77,6 +82,7 @@ function AddCommand(key) {
         return;
     }
     txt.value += "," + key;
+	txt.scrollTop = txt.scrollHeight
 
     if (key == "M") {
         theCircleOfStuff.right();
@@ -102,6 +108,10 @@ circle.prototype.left = function () {
     if (this.x - 1 > 0) {
         dx = this.x - 1;
     }
+	else
+	{
+		StopClicking(); 		
+	}
 
     this.x = dx;
 
@@ -117,6 +127,10 @@ circle.prototype.right = function () {
     if (this.x + 1 < canvas.width) {
         dx = this.x + 1;
     }
+	else
+	{
+		StopClicking();
+	}
 
     this.x = dx;
     theCircleOfStuff.draw(this.x, this.y);
@@ -130,6 +144,10 @@ circle.prototype.up = function () {
     if (this.y - 1 > 0) {
         dy = this.y - 1;
     }
+	else
+	{
+		StopClicking();
+	}
 
     this.y = dy;
     theCircleOfStuff.draw(this.x, this.y);
@@ -143,6 +161,10 @@ circle.prototype.down = function () {
     if (this.y + 1 < canvas.height) {
         dy = this.y + 1;
     }
+	else
+	{
+		StopClicking();
+	}
 
     this.y = dy;
     theCircleOfStuff.draw(this.x, this.y);
@@ -166,6 +188,9 @@ function SetUp() {
     window.addEventListener("keypress", CaptureKey, false);
     theCircleOfStuff = new circle(0, 0);
 
+	//ignore dragging, still fires the mouse up/down but won't break when it drags a bit, disables it for the whole window
+	window.addEventListener("dragstart", function(event) {event.preventDefault();}, false);
+	
     var canvas = document.getElementById("can");
     var ctx = canvas.getContext("2d");
     
