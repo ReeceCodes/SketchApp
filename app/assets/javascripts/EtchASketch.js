@@ -12,22 +12,23 @@ function circle(x, y) {
 //make the keypress have the same 'graphic' as clicking the button, that would be keydown/keyup, activate hover while keydown, remove when up, only have for specified keys
 function CaptureKey(e) {
 //return bc can't capture more than one at a time
-    if (e.keyCode == 77 || e.keyCode == 109) { //apparently I am getting the ascii code no matter what in chrome. test in other browsers
+
+    if (e.keyCode == 77 || e.keyCode == 109 || e.charCode == 109 || e.charCode == 77) { //apparently I am getting the ascii code no matter what in chrome. test in other browsers, FF uses charcode...
         AddCommand("M");
         return;
     }
 
-    if (e.keyCode == 78 || e.keyCode == 110) { 
+    if (e.keyCode == 78 || e.keyCode == 110 || e.charCode == 110 || e.charCode == 78) { 
         AddCommand("N");
         return;
     }
 
-    if (e.keyCode == 88 || e.keyCode == 120) {
+    if (e.keyCode == 88 || e.keyCode == 120 || e.charCode == 120 || e.charCode == 88) {
         AddCommand("X");
         return;
     }
 
-    if (e.keyCode == 90 || e.keyCode == 122) {
+    if (e.keyCode == 90 || e.keyCode == 122 || e.charCode == 122 || e.charCode == 90) {
         AddCommand("Z");
         return;
      }
@@ -188,6 +189,10 @@ function SetUp() {
     window.addEventListener("keypress", CaptureKey, false);
     theCircleOfStuff = new circle(0, 0);
 
+	
+	var txt = document.getElementById("keys");
+	txt.addEventListener("keypress", function(e) {e.preventDefault()}, false); //can't believe that worked, don't type the keystrokes inside the textarea so it doesn't double type keys
+	
 	//ignore dragging, still fires the mouse up/down but won't break when it drags a bit, disables it for the whole window
 	window.addEventListener("dragstart", function(event) {event.preventDefault();}, false);
 	
@@ -216,9 +221,10 @@ function ClearCanvas() {
 
     ctx.restore();
 
+	//change it to work everywhere or remove it? add an option to remove text as well?
     var txt = document.getElementById("keys");
-    txt.innerHTML = "";
-
+    txt.innerHTML = ""; //ie
+	txt.value = ""; //ff-chroem
     
     
 }
