@@ -186,7 +186,7 @@ circle.prototype.draw = function (x, y) {
 
 function SetUp() {
     //document.onkeypress = CaptureKey; //this worked but my old code had listeners so went there
-    window.addEventListener("keypress", CaptureKey, false);
+    window.addEventListener("keypress", CaptureKey, false); //on screen keyboard not handled, what about keydown instead? while keydown call keypress, when keyup stop event? or will keydown work the same as keypress...
     theCircleOfStuff = new circle(0, 0);
 
 	
