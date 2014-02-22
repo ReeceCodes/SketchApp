@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140212004632) do
+ActiveRecord::Schema.define(version: 20140222062241) do
 
   create_table "drawings", force: true do |t|
     t.string   "name"
-    t.string   "commands"
+    t.text     "commands",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "startx"
