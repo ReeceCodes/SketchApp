@@ -169,5 +169,19 @@ body {
 	padding-top: 10px;
 	font-size: 20px;
 	display: inline-block;
+}
 
+#left_sidebar {
+	position:absolute;
+	top: 80px;
+	left: 10px;
+	height:620px;
+	overflow: scroll;
+}
+
+#right_sidebar {
+	position:absolute;
+	top:80px;
+	right:10px;
+	
 }

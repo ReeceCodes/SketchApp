@@ -2,10 +2,11 @@
 var theCircleOfStuff;
 var t = [];
 
-function circle(x, y) {
+function circle(x, y, canvasid, scale) {
         this.x = x;
         this.y = y;
-        this.r = 0.5;
+        this.scale = scale;
+		this.canvas = canvasid;
 }
 
 //key and button presses, capture keyPress instead of keyDown bc of repeating keystrokes as you hold it
@@ -102,7 +103,7 @@ function AddCommand(key) {
 
 //moving functions
 circle.prototype.left = function () {
-    var canvas = document.getElementById("can");
+    var canvas = document.getElementById(this.canvas);
 
     var dx = this.x;
 
@@ -116,12 +117,12 @@ circle.prototype.left = function () {
 
     this.x = dx;
 
-    theCircleOfStuff.draw(this.x, this.y);
+    this.draw(this.x*this.scale, this.y*this.scale);
 }
 
 circle.prototype.right = function () {
 
-    var canvas = document.getElementById("can");
+    var canvas = document.getElementById(this.canvas);
 
     var dx = this.x;
 
@@ -134,11 +135,11 @@ circle.prototype.right = function () {
 	}
 
     this.x = dx;
-    theCircleOfStuff.draw(this.x, this.y);
+    this.draw(this.x*this.scale, this.y*this.scale);
 }
 
 circle.prototype.up = function () {
-    var canvas = document.getElementById("can");
+    var canvas = document.getElementById(this.canvas);
 
     dy = this.y;
 
@@ -151,11 +152,11 @@ circle.prototype.up = function () {
 	}
 
     this.y = dy;
-    theCircleOfStuff.draw(this.x, this.y);
+    this.draw(this.x*this.scale, this.y*this.scale);
 }
 
 circle.prototype.down = function () {
-    var canvas = document.getElementById("can");
+    var canvas = document.getElementById(this.canvas);
 
     dy = this.y;
 
@@ -168,11 +169,11 @@ circle.prototype.down = function () {
 	}
 
     this.y = dy;
-    theCircleOfStuff.draw(this.x, this.y);
+    this.draw(this.x*this.scale, this.y*this.scale);
 }
 
 circle.prototype.draw = function (x, y) {
-    var c = document.getElementById('can');
+    var c = document.getElementById(this.canvas);
     var ctx = c.getContext("2d");
 
     ctx.beginPath();
@@ -187,7 +188,7 @@ circle.prototype.draw = function (x, y) {
 function SetUp() {
     //document.onkeypress = CaptureKey; //this worked but my old code had listeners so went there
     window.addEventListener("keypress", CaptureKey, false); //on screen keyboard not handled, what about keydown instead? while keydown call keypress, when keyup stop event? or will keydown work the same as keypress...
-    theCircleOfStuff = new circle(0, 0);
+    theCircleOfStuff = new circle(0, 0, "can", 1);
 
 	
 	var txt = document.getElementById("keys");
@@ -196,6 +197,7 @@ function SetUp() {
 	//ignore dragging, still fires the mouse up/down but won't break when it drags a bit, disables it for the whole window
 	window.addEventListener("dragstart", function(event) {event.preventDefault();}, false);
 	
+	//why is this here?
     var canvas = document.getElementById("can");
     var ctx = canvas.getContext("2d");
     
@@ -209,7 +211,7 @@ function ClearCanvas() {
     var FC = document.getElementById("FullClear");
     if (FC.checked == true) {
         //window.location.href = window.location.pathname; //technically it works ;)
-        theCircleOfStuff = new circle(0, 0);
+        theCircleOfStuff = new circle(0, 0, "can", 1);
         ctx.moveTo(0, 0);
         }
 
@@ -261,5 +263,27 @@ function ReadText() {
             theCircleOfStuff.up();
         }
     }
+}
 
+function RunCommands(cmds, canvas, startx, starty) {
+    var txt = cmds;
+
+    var txtarray = txt.split(',');
+
+	tempCircle = new circle(startx/5, starty/5, canvas, 0.2); // 20% as big as the original canvas so reduce the start points by the same
+	
+    for (var i = 0; i < txtarray.length; i++) {
+        if (txtarray[i] == "M" || txtarray[i] == "m") {
+            tempCircle.right();
+        }
+        else if (txtarray[i] == "N" || txtarray[i] == "n") {
+            tempCircle.left();
+        }
+        else if (txtarray[i] == "X" || txtarray[i] == "x") {
+            tempCircle.down();
+        }
+        else if (txtarray[i] == "Z" || txtarray[i] == "z") {
+            tempCircle.up();
+        }
+    }
 }

@@ -9,8 +9,23 @@
 <body>
 <%= render 'layouts/header' %>
 
+<% if current_page?(root_url) %>
+	<div id="left_sidebar">
+		<h3 style="text-align:center;">Most Recent</h3>
+		<%= render 'shared/drawing' %>
+	</div>
+<% end if %>
+
 <div class="container">
+
 <%= yield %>
+
+<% if current_page?(root_url) %>
+	<div id="right_sidebar">
+	right sidebar
+	</div>
+<% end if %>
+
 </div>
 <%= debug(params) if Rails.env.development? %>
 </body>

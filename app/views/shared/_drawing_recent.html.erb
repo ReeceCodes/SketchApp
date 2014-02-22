@@ -1,0 +1,25 @@
+<% @drawing.each do |d| %>
+<p>
+  <strong>Id:</strong>
+  <%= d.id %>
+  <strong>Name:</strong>
+  <%= d.name %>
+  <br/>
+  <canvas id="<%= d.id %>" width="200px" height="50px" />
+  
+</p>
+<script type="text/javascript">
+	RunCommands('<%= d.commands %>', '<%= d.id %>', <%= d.startx %>, <%= d.starty %>);
+  </script>
+<!-- here draw the commands in the mini canvas until i can get a save function up
+<p>
+  <strong>Commands:</strong>
+  <%= d.commands %>
+  <strong>Startx:</strong>
+  <%= d.startx %>
+  ,   <strong>Starty:</strong>
+  <%= d.starty %>
+</p>
+-->
+
+<% end %>

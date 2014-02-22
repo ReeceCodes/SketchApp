@@ -1,0 +1,16 @@
+<h1>Listing drawings</h1>
+<div id="drawings" class="row">
+    <% @drawings.each do |drawing| %>
+	<div class="span2">
+        <%= drawing.id %>
+        <%= drawing.name %>
+        <%= drawing.commands %>
+        <%= link_to 'Show', drawing %>
+        <%= link_to 'Edit', edit_drawing_path(drawing) %>
+	</div>
+    <% end %>
+</div>
+
+<br>
+
+<%= link_to 'New Drawing', new_drawing_path %>

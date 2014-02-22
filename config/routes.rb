@@ -1,4 +1,6 @@
 SketchApp::Application.routes.draw do
+  resources :drawings
+
   root to: 'static_pages#SketchApp'
   match '/about', to: 'static_pages#about', via: 'get'
   
