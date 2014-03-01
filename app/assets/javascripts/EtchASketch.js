@@ -231,7 +231,9 @@ function ClearCanvas() {
     txt.innerHTML = ""; //ie
 	txt.value = ""; //ff-chroem
     
-    
+	//this is the only time I need to change the x/y, before it should have started on 0,0
+    $('#drawing_startx').val(theCircleOfStuff.x);
+	$('#drawing_starty').val(theCircleOfStuff.y);
 }
 
 //function Erase() {
@@ -296,7 +298,5 @@ function RunCommands(cmds, canvas, startx, starty) {
 function SetSaveValues(){
 	
 	$('#drawing_commands').val(document.getElementById("keys").value + ',');
-	$('#drawing_startx').val(theCircleOfStuff.x);
-	$('#drawing_starty').val(theCircleOfStuff.y);
 	
 }
