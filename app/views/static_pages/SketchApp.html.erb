@@ -1,14 +1,19 @@
 
 <body onload="SetUp();" >
-
- <div class="canvas-holder">
+<div id="left_sidebar" class="col-sm-2">
+		<h3 style="text-align:center;">Most Recent</h3>
+		<%= render 'shared/drawing' %>
+	</div>
+<div class="clearfix visible-sm"></div>
+ <div class="col-lg-7 col-sm-offset-1">
  <canvas id="can" class="EAS" width="750" height="500" ></canvas> 
  <!-- this cleared it way up, the height/width on element directly affect the pixel number
  that means that I can't resize it without using some js and listening for resize events. not worth it for now.
   http://stackoverflow.com/questions/5034529/size-of-html5-canvas-via-css-versus-element-attributes -->
-</div>
 
-<div class="controls">
+
+<div class="row">
+<div class="col-lg-8">
     <div class="leftright">
         <div class="lrbutton">
             <div class="lbutton" onmousedown="IMGDown(this, event);" title="Left" ></div>
@@ -26,18 +31,15 @@
     
         <div class="arrowsupdown"><span id="up_key">Z</span> &uArr;<%= image_tag "arrows.png", :class=>"rotate" %><span id="down_key">X</span> &dArr;</div>
     </div>
-
 </div>
-<div class="clearButton">
-    <div class="lefty">
-    </div>
-    <div class="middle">
-        
-    </div>
-    <div class="righty">
-    </div>
 </div>
 
+</div>
+<div class="clearfix visible-sm"></div>
+<div id="right_sidebar" class="col-sm-2">
+	<%= render 'shared/drawing_save' %>
+	<%= render 'shared/commands_on_right' %>
+	</div>
 
 </body>
 
