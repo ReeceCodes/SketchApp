@@ -24,7 +24,9 @@ canvas
 .commands 
 {
     overflow:scroll-y;
-    height:10%;
+    min-height: 20px;
+	max-height: 50%;
+	height: 40%;
     width:90%;
     }
     
@@ -42,7 +44,7 @@ canvas
     
 .controls 
 {
-    width:100%;
+    max-width:70%;
     height:20%;
     min-height:150px;
 	padding-left:40px;
@@ -182,6 +184,14 @@ body {
 #right_sidebar {
 	position:absolute;
 	top:80px;
-	right:10px;
+	right:100px;
+	height: 90%;
 	
 }
+
+.current_commands{
+	min-height: 20px;
+	max-height: 50%;
+	height: 40%;
+}
+

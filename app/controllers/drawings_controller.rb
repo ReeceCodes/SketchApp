@@ -1,10 +1,10 @@
 class DrawingsController < ApplicationController
-  before_action :set_drawing, only: [:show, :edit, :update]
+  before_action :set_drawing, only: [:show]
 
   # GET /drawings
   # GET /drawings.json
   def index
-    @drawings = Drawing.all
+    @drawings = Drawing.all.paginate(page: params[:page], per_page: 9)
   end
     
   # GET /drawings/1
@@ -17,36 +17,22 @@ class DrawingsController < ApplicationController
     @drawing = Drawing.new
   end
 
-  # GET /drawings/1/edit
-  def edit
-  end
-
+ 
   # POST /drawings
   # POST /drawings.json
   def create
     @drawing = Drawing.new(drawing_params)
 
+	#this is supposed to notice that I am using js but it still calls the html...using jquery/javascript to get the value from the json which comes as the response text from the request.
     respond_to do |format|
       if @drawing.save
-        format.html { redirect_to @drawing, notice: 'Drawing was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @drawing }
+		format.html { head :created }
+        format.json { head :created }
       else
-        format.html { render action: 'new' }
-        format.json { render json: @drawing.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /drawings/1
-  # PATCH/PUT /drawings/1.json
-  def update
-    respond_to do |format|
-      if @drawing.update(drawing_params)
-        format.html { redirect_to @drawing, notice: 'Drawing was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @drawing.errors, status: :unprocessable_entity }
+	  #the only possible error SHOULD be no name because the rest are not user inputs (strictly)
+		format.html { render json: @drawing.errors.full_messages.to_sentence, status: :unprocessable_entity }
+        format.json { render json: @drawing.errors.full_messages.to_sentence, status: :unprocessable_entity }
+		
       end
     end
   end

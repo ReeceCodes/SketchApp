@@ -1,16 +1,22 @@
-<h1>Listing drawings</h1>
+<h1>All drawings</h1>
 <div id="drawings" class="row">
     <% @drawings.each do |drawing| %>
-	<div class="span2">
-        <%= drawing.id %>
-        <%= drawing.name %>
-        <%= drawing.commands %>
-        <%= link_to 'Show', drawing %>
-        <%= link_to 'Edit', edit_drawing_path(drawing) %>
+	<div class="span4 text-center">
+        <p>ID: <%= drawing.id %></p>
+        <p>Name: <%= drawing.name %></p>
+        <p style="display:none;"><%= drawing.commands %></p>
+        <p><canvas id="<%= drawing.id %>" width="150px" height="100px" /></p>
+		<p><%= link_to 'View', drawing %></p>
 	</div>
+
+
+  
+<script type="text/javascript">
+	RunCommands('<%= drawing.commands %>', '<%= drawing.id %>', <%= drawing.startx %>, <%= drawing.starty %>);
+  </script>
+
     <% end %>
+	
 </div>
 
-<br>
-
-<%= link_to 'New Drawing', new_drawing_path %>
+<%= will_paginate %>

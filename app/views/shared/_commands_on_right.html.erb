@@ -1,0 +1,8 @@
+<div class="current_commands">
+<p>Commands: </p>
+<p class="text-error">(whatever is in the box will get saved, using 'run again' doesn't add them to the box)</p>
+    <textarea id="keys" class="commands"></textarea>
+    <button id="btnRerun" onclick="ReadText();">Run Commands Again (from current point)</button>
+</div>
+<button id="btnClear" class="" onclick="ClearCanvas()"> CLEAR </button> 
+        <input type="checkbox" id="FullClear" title="This puts the position back at (0,0). Useful if you want to rerun a copy/paste to 'undo' something."> Start over </input>

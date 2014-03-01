@@ -2,7 +2,7 @@
 <body onload="SetUp();" >
 
  <div class="canvas-holder">
- <canvas id="can" class="EAS" width="1000" height="600" ></canvas> 
+ <canvas id="can" class="EAS" width="750" height="500" ></canvas> 
  <!-- this cleared it way up, the height/width on element directly affect the pixel number
  that means that I can't resize it without using some js and listening for resize events. not worth it for now.
   http://stackoverflow.com/questions/5034529/size-of-html5-canvas-via-css-versus-element-attributes -->
@@ -11,20 +11,20 @@
 <div class="controls">
     <div class="leftright">
         <div class="lrbutton">
-            <div class="lbutton" onmousedown="IMGDown(this, event);" ></div>
-            <div class="rbutton" onmousedown="IMGDown(this,event);" ></div>
+            <div class="lbutton" onmousedown="IMGDown(this, event);" title="Left" ></div>
+            <div class="rbutton" onmousedown="IMGDown(this,event);" title="Right" ></div>
         </div>
 
-        <div class="arrowsleftright">N &lArr;<%= image_tag "arrows.png" %>M &rArr;</div>
+        <div class="arrowsleftright"><span id="left_key">N</span> &lArr;<%= image_tag "arrows.png" %><span id="right_key">M</span> &rArr;</div>
     </div>
 
     <div class="updown">
         <div class="udbutton">
-            <div class="ubutton"  onmousedown="IMGDown(this, event);" ></div>
-            <div class="dbutton"  onmousedown="IMGDown(this, event);" ></div>
+            <div class="ubutton"  onmousedown="IMGDown(this, event);" title="Up" ></div>
+            <div class="dbutton"  onmousedown="IMGDown(this, event);" title="Down" ></div>
         </div>
     
-        <div class="arrowsupdown">Z &uArr;<%= image_tag "arrows.png", :class=>"rotate" %>X &dArr;</div>
+        <div class="arrowsupdown"><span id="up_key">Z</span> &uArr;<%= image_tag "arrows.png", :class=>"rotate" %><span id="down_key">X</span> &dArr;</div>
     </div>
 
 </div>
@@ -32,17 +32,12 @@
     <div class="lefty">
     </div>
     <div class="middle">
-        <button id="btnClear" class="" onclick="ClearCanvas()"> CLEAR </button> 
-        <input type="checkbox" id="FullClear" title="This puts the position back at (0,0). Useful if you want to rerun a copy/paste to 'undo' something."> Start over </input>
+        
     </div>
     <div class="righty">
     </div>
 </div>
-<div class="footer">
-Commands:
-    <textarea id="keys" class="commands"></textarea>
-    <button id="btnRerun" onclick="ReadText();">Run Commands Again (from current point)</button>
-</div>
+
 
 </body>
 

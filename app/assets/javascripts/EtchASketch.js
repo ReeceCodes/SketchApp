@@ -2,18 +2,19 @@
 var theCircleOfStuff;
 var t = [];
 
-function circle(x, y, canvasid, scale) {
+function circle(x, y, canvasid, scale, r) {
         this.x = x;
         this.y = y;
         this.scale = scale;
 		this.canvas = canvasid;
+		this.r = r;
 }
 
 //key and button presses, capture keyPress instead of keyDown bc of repeating keystrokes as you hold it
 //make the keypress have the same 'graphic' as clicking the button, that would be keydown/keyup, activate hover while keydown, remove when up, only have for specified keys
 function CaptureKey(e) {
 //return bc can't capture more than one at a time
-
+//update this later to use custom input, check if keycode == customkey.key/char code? will that work?
     if (e.keyCode == 77 || e.keyCode == 109 || e.charCode == 109 || e.charCode == 77) { //apparently I am getting the ascii code no matter what in chrome. test in other browsers, FF uses charcode...
         AddCommand("M");
         return;
@@ -98,6 +99,8 @@ function AddCommand(key) {
     else if (key == "Z") {
         theCircleOfStuff.up();
     }
+	
+	SetSaveValues();
 
 }
 
@@ -117,7 +120,7 @@ circle.prototype.left = function () {
 
     this.x = dx;
 
-    this.draw(this.x*this.scale, this.y*this.scale);
+    this.draw(this.x*this.scale, this.y*this.scale, this.r);
 }
 
 circle.prototype.right = function () {
@@ -135,7 +138,7 @@ circle.prototype.right = function () {
 	}
 
     this.x = dx;
-    this.draw(this.x*this.scale, this.y*this.scale);
+    this.draw(this.x*this.scale, this.y*this.scale, this.r);
 }
 
 circle.prototype.up = function () {
@@ -152,7 +155,7 @@ circle.prototype.up = function () {
 	}
 
     this.y = dy;
-    this.draw(this.x*this.scale, this.y*this.scale);
+    this.draw(this.x*this.scale, this.y*this.scale, this.r);
 }
 
 circle.prototype.down = function () {
@@ -160,7 +163,7 @@ circle.prototype.down = function () {
 
     dy = this.y;
 
-    if (this.y + 1 < canvas.height) {
+    if (this.y*this.scale + 1 < canvas.height) {
         dy = this.y + 1;
     }
 	else
@@ -169,17 +172,17 @@ circle.prototype.down = function () {
 	}
 
     this.y = dy;
-    this.draw(this.x*this.scale, this.y*this.scale);
+    this.draw(this.x*this.scale, this.y*this.scale, this.r);
 }
 
-circle.prototype.draw = function (x, y) {
+circle.prototype.draw = function (x, y, r) {
     var c = document.getElementById(this.canvas);
     var ctx = c.getContext("2d");
 
     ctx.beginPath();
     ctx.fillStyle = "black";
     ctx.strokeStyle = "black";
-    ctx.arc(x, y, 0.5, 0, Math.PI * 2, false);
+    ctx.arc(x, y, r, 0, Math.PI * 2, false);
     ctx.stroke();
     ctx.fill();
     ctx.closePath();
@@ -188,7 +191,7 @@ circle.prototype.draw = function (x, y) {
 function SetUp() {
     //document.onkeypress = CaptureKey; //this worked but my old code had listeners so went there
     window.addEventListener("keypress", CaptureKey, false); //on screen keyboard not handled, what about keydown instead? while keydown call keypress, when keyup stop event? or will keydown work the same as keypress...
-    theCircleOfStuff = new circle(0, 0, "can", 1);
+    theCircleOfStuff = new circle(0, 0, "can", 1, 0.5);
 
 	
 	var txt = document.getElementById("keys");
@@ -211,7 +214,7 @@ function ClearCanvas() {
     var FC = document.getElementById("FullClear");
     if (FC.checked == true) {
         //window.location.href = window.location.pathname; //technically it works ;)
-        theCircleOfStuff = new circle(0, 0, "can", 1);
+        theCircleOfStuff = new circle(0, 0, "can", 1, 0.5);
         ctx.moveTo(0, 0);
         }
 
@@ -270,7 +273,7 @@ function RunCommands(cmds, canvas, startx, starty) {
 
     var txtarray = txt.split(',');
 
-	tempCircle = new circle(startx/5, starty/5, canvas, 0.2); // 20% as big as the original canvas so reduce the start points by the same
+	tempCircle = new circle(startx/5, starty/5, canvas, 0.2, 0.1); // 20% as big as the original canvas so reduce the start points by the same
 	
     for (var i = 0; i < txtarray.length; i++) {
         if (txtarray[i] == "M" || txtarray[i] == "m") {
@@ -286,4 +289,14 @@ function RunCommands(cmds, canvas, startx, starty) {
             tempCircle.up();
         }
     }
+}
+
+//this and a bit more are getting pulled out but to get it working...
+//fill the inputs for the save form right when getting them (drawing) or right after getting the last input
+function SetSaveValues(){
+	
+	$('#drawing_commands').val(document.getElementById("keys").value + ',');
+	$('#drawing_startx').val(theCircleOfStuff.x);
+	$('#drawing_starty').val(theCircleOfStuff.y);
+	
 }
