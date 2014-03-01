@@ -110,7 +110,7 @@ circle.prototype.left = function () {
 
     var dx = this.x;
 
-    if (this.x - 1 > 0) {
+    if (this.x*this.scale - 1 > 0) {
         dx = this.x - 1;
     }
 	else
@@ -129,7 +129,7 @@ circle.prototype.right = function () {
 
     var dx = this.x;
 
-    if (this.x + 1 < canvas.width) {
+    if (this.x*this.scale + 1 < canvas.width) {
         dx = this.x + 1;
     }
 	else
@@ -146,7 +146,7 @@ circle.prototype.up = function () {
 
     dy = this.y;
 
-    if (this.y - 1 > 0) {
+    if (this.y*this.scale - 1 > 0) {
         dy = this.y - 1;
     }
 	else
