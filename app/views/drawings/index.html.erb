@@ -1,7 +1,7 @@
 <h1>All drawings</h1>
 <div id="drawings" class="row">
     <% @drawings.each do |drawing| %>
-	<div class="span4 text-center">
+	<div class="col-sm-4 text-center">
         <p>ID: <%= drawing.id %></p>
         <p>Name: <%= drawing.name %></p>
         <p style="display:none;"><%= drawing.commands %></p>
