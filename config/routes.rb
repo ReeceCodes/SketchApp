@@ -4,7 +4,7 @@ SketchApp::Application.routes.draw do
   root to: 'static_pages#SketchApp'
   match '/about', to: 'static_pages#about', via: 'get'
   match '/plans', to: 'static_pages#plans', via: 'get'
-  
+    
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

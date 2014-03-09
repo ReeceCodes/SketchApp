@@ -5,7 +5,7 @@
 # code that gets the response from a new drawing, error or ok
 $(document).ready ->
   $("#new_drawing").on("ajax:success", (e, data, status, xhr) ->
-    ($("#Details").text(status); $("#drawing_name").val(''))
+    (location.reload();)
   ).bind "ajax:error", (e, xhr, status, error) ->
     $("#Details").text(xhr.responseText)
 	

@@ -32,8 +32,8 @@ class DrawingsController < ApplicationController
 	  #the only possible error SHOULD be no name because the rest are not user inputs (strictly)
 		format.html { render json: @drawing.errors.full_messages.to_sentence, status: :unprocessable_entity }
         format.json { render json: @drawing.errors.full_messages.to_sentence, status: :unprocessable_entity }
-		
       end
+	  
     end
   end
 

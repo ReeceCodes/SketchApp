@@ -5,21 +5,11 @@
   <strong>Name:</strong>
   <%= d.name %>
   <br/>
-  <canvas id="<%= d.id %>" width="150px" height="100px" />
+  <canvas id="<%= d.id %>" width="150px" height="100px" style="cursor:pointer;" title="Click to draw onto the larger image." onclick="RunCommands('<%= d.commands %>', 'can', <%= d.startx %>, <%= d.starty %>, 1, 0.5);" />
   
 </p>
 <script type="text/javascript">
-	RunCommands('<%= d.commands %>', '<%= d.id %>', <%= d.startx %>, <%= d.starty %>);
+	RunCommands('<%= d.commands %>', '<%= d.id %>', <%= d.startx %>, <%= d.starty %>, 0.2, 0.1);
   </script>
-<!-- here draw the commands in the mini canvas until i can get a save function up, update js to change width so that the lines aren't so messy, also make sure the canvas is handled right because some look funky
-<p>
-  <strong>Commands:</strong>
-  <%= d.commands %>
-  <strong>Startx:</strong>
-  <%= d.startx %>
-  ,   <strong>Starty:</strong>
-  <%= d.starty %>
-</p>
--->
 
 <% end %>

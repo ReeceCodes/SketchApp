@@ -15,7 +15,11 @@ function circle(x, y, canvasid, scale, r) {
 function CaptureKey(e) {
 //return bc can't capture more than one at a time
 //update this later to use custom input, check if keycode == customkey.key/char code? will that work?
-    if (e.keyCode == 77 || e.keyCode == 109 || e.charCode == 109 || e.charCode == 77) { //apparently I am getting the ascii code no matter what in chrome. test in other browsers, FF uses charcode...
+	if (e.target.tagName.toLowerCase() == 'input'){
+		return;
+	}
+
+	if (e.keyCode == 77 || e.keyCode == 109 || e.charCode == 109 || e.charCode == 77) { //apparently I am getting the ascii code no matter what in chrome. test in other browsers, FF uses charcode...
         AddCommand("M");
         return;
     }
@@ -195,15 +199,18 @@ function SetUp() {
 
 	
 	var txt = document.getElementById("keys");
-	txt.addEventListener("keypress", function(e) {e.preventDefault()}, false); //can't believe that worked, don't type the keystrokes inside the textarea so it doesn't double type keys
+	txt.addEventListener("keypress", function(e) {e.preventDefault()}, false); //don't type the keystrokes inside the textarea so it doesn't double type keys
+	
+	//for pasting
+	$(txt).bind('input propertychange', function() {CheckPaste(this);});
+	
+	//not all browsers were clearing the textarea even with autocomplete off so make sure each refresh empties it
+	$(txt).val('');
+	$('#drawing_commands').val('');
 	
 	//ignore dragging, still fires the mouse up/down but won't break when it drags a bit, disables it for the whole window
 	window.addEventListener("dragstart", function(event) {event.preventDefault();}, false);
 	
-	//why is this here?
-    var canvas = document.getElementById("can");
-    var ctx = canvas.getContext("2d");
-    
 }
 
 function ClearCanvas() {
@@ -226,56 +233,97 @@ function ClearCanvas() {
 
     ctx.restore();
 
-	//change it to work everywhere or remove it? add an option to remove text as well?
-    var txt = document.getElementById("keys");
-    txt.innerHTML = ""; //ie
-	txt.value = ""; //ff-chroem
-    
+	ClearCommands();
+	
 	//this is the only time I need to change the x/y, before it should have started on 0,0
     $('#drawing_startx').val(theCircleOfStuff.x);
 	$('#drawing_starty').val(theCircleOfStuff.y);
 }
 
-//function Erase() {
-//    var canvas = document.getElementById("can");
-//    var ctx = canvas.getContext("2d");
+function ClearCommands(){
+	var txt = document.getElementById("keys");
+    txt.innerHTML = ""; //ie
+	txt.value = ""; //ff-chroem
+    
+	var cmds = document.getElementById('drawing_commands');
+	cmds.value = "";
+}
 
-//    ctx.save();
+function CheckPaste(txt){
 
-//    ctx.setTransform(1, 0, 0, 1, 0, 0);
-//    ctx.clearRect(0, 0, canvas.width, canvas.height);
+	var previousCMDS = $('#drawing_commands').val().slice(0,-1); //remove trailing comma
+	
+	var newCMDS = $(txt).val().replace(previousCMDS,''); //only the new text now, could have just sliced this from the start length of the previouscmds...oh well
+	
+	var keyarray = newCMDS.split(',');
+	
+	var allowedkeys = [];
+	
+	for (var i = 0; i < keyarray.length; i++) {
+        if (keyarray[i].replace(',') == "M" || keyarray[i].replace(',') == "m") {
+            allowedkeys.push(keyarray[i].replace(','));
+        }
+        else if (keyarray[i].replace(',') == "N" || keyarray[i].replace(',') == "n") {
+            allowedkeys.push(keyarray[i].replace(','));
+        }
+        else if (keyarray[i].replace(',') == "X" || keyarray[i].replace(',') == "x") {
+            allowedkeys.push(keyarray[i].replace(','));
+        }
+        else if (keyarray[i].replace(',') == "Z" || keyarray[i].replace(',') == "z") {
+            allowedkeys.push(keyarray[i].replace(','));
+        }
+    }
+	
+	if(allowedkeys.length == 0){
+		//nothing to allow pasted!
+		$(txt).val(previousCMDS);
+		return;
+	}
+	
+	if(previousCMDS != ""){
+		previousCMDS = previousCMDS + ',';
+	}
+		
+	$(txt).val(previousCMDS + allowedkeys.join(','));
+	
+	ReadKeys(allowedkeys.join(','));
+	
+	SetSaveValues();
+	
+}
 
-//    ctx.restore();
-//}
+function ReadKeys(keyarray){
+//this is different from runcommands because it actually moves the point
+	for (var i = 0; i < keyarray.length; i++) {
+        if (keyarray[i] == "M" || keyarray[i] == "m") {
+            theCircleOfStuff.right();
+        }
+        else if (keyarray[i] == "N" || keyarray[i] == "n") {
+            theCircleOfStuff.left();
+        }
+        else if (keyarray[i] == "X" || keyarray[i] == "x") {
+            theCircleOfStuff.down();
+        }
+        else if (keyarray[i] == "Z" || keyarray[i] == "z") {
+            theCircleOfStuff.up();
+        }
+    }
+	
+}
 
 function ReadText() {
 //not using onchange bc I write to it so using button click
     var txt = document.getElementById("keys");
 
-    var txtarray = txt.value.split(',');
-
-    for (var i = 0; i < txtarray.length; i++) {
-        if (txtarray[i] == "M" || txtarray[i] == "m") {
-            theCircleOfStuff.right();
-        }
-        else if (txtarray[i] == "N" || txtarray[i] == "n") {
-            theCircleOfStuff.left();
-        }
-        else if (txtarray[i] == "X" || txtarray[i] == "x") {
-            theCircleOfStuff.down();
-        }
-        else if (txtarray[i] == "Z" || txtarray[i] == "z") {
-            theCircleOfStuff.up();
-        }
-    }
+    ReadKeys(txt.value);
 }
 
-function RunCommands(cmds, canvas, startx, starty) {
+function RunCommands(cmds, canvas, startx, starty, scale,r) {
     var txt = cmds;
 
     var txtarray = txt.split(',');
 
-	tempCircle = new circle(startx/5, starty/5, canvas, 0.2, 0.1); // 20% as big as the original canvas so reduce the start points by the same
+	tempCircle = new circle(startx, starty, canvas, scale, r); 
 	
     for (var i = 0; i < txtarray.length; i++) {
         if (txtarray[i] == "M" || txtarray[i] == "m") {
@@ -293,10 +341,6 @@ function RunCommands(cmds, canvas, startx, starty) {
     }
 }
 
-//this and a bit more are getting pulled out but to get it working...
-//fill the inputs for the save form right when getting them (drawing) or right after getting the last input
 function SetSaveValues(){
-	
 	$('#drawing_commands').val(document.getElementById("keys").value + ',');
-	
 }
