@@ -28,6 +28,8 @@ canvas
 	max-height: 50%;
 	height: 40%;
     width:90%;
+	display: block;
+	margin: auto;
     }
     
 .leftright 
@@ -180,9 +182,18 @@ body {
 }
 
 
-.current_commands{
+.current_commands {
 	min-height: 20px;
 	max-height: 50%;
 	height: 40%;
 }
 
+.CustomCommand {
+	width:10%;
+	min-width:30px;
+	max-width:30px;
+}
+
+.well {
+	background-color: #BBB !important;
+}

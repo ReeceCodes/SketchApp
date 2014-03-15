@@ -1,6 +1,10 @@
 ﻿//this is the most basic, what about saving off the img? what about redrawing but slower so you could see it? currently button redraw is as fast as the loop that reads it.
 var theCircleOfStuff;
 var t = [];
+var upkey = 'z';
+var downkey = 'y';
+var leftkey = 'n';
+var rightkey = 'm';
 
 function circle(x, y, canvasid, scale, r) {
         this.x = x;
@@ -66,7 +70,7 @@ function IMGClick(div, e) {
     function IMGDown(div, e) {
         window.addEventListener("mouseup", StopClicking, false);
        
-        t[t.length] = setInterval(function () { IMGClick(div, e); }, 30); //since you can't pass params directly use anonymous function and call within where you can, at least that's how I remembered :P
+        t[t.length] = setInterval(function () { IMGClick(div, e); }, 30); 
 
     }
 
@@ -190,6 +194,8 @@ circle.prototype.draw = function (x, y, r) {
     ctx.stroke();
     ctx.fill();
     ctx.closePath();
+
+	DisplayXY();
 }
 
 function SetUp() {
@@ -238,6 +244,7 @@ function ClearCanvas() {
 	//this is the only time I need to change the x/y, before it should have started on 0,0
     $('#drawing_startx').val(theCircleOfStuff.x);
 	$('#drawing_starty').val(theCircleOfStuff.y);
+	DisplayXY();
 }
 
 function ClearCommands(){
@@ -343,4 +350,11 @@ function RunCommands(cmds, canvas, startx, starty, scale,r) {
 
 function SetSaveValues(){
 	$('#drawing_commands').val(document.getElementById("keys").value + ',');
+}
+
+function DisplayXY(){
+	if (theCircleOfStuff){
+		$('#xLabel').text(theCircleOfStuff.x);
+		$('#yLabel').text(theCircleOfStuff.y);
+	}
 }

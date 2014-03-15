@@ -1,8 +1,38 @@
-<div class="current_commands">
-<p>Commands: </p>
-<p class="text-error">(whatever is in the box will get saved, using 'run again' doesn't add them to the box)</p>
-    <textarea id="keys" class="commands" autocomplete="off" ></textarea>
-    <button id="btnRerun" onclick="ReadText();">Run Commands Again (from current point)</button>
+<div class='current_commands well'>
+	<p class="text-center"><strong>Commands: </strong></p>
+    <p class="text-center">
+		<%= text_area_tag 'keys', '', class: 'commands', autocomplete:'off' %>
+	</p>
+	<p class="text-center">
+		<%= button_tag 'Run Commands', type: 'button', id: 'btnRerun', title: 'This runs the commands from the current point. This moves the position but does NOT add to the commands.', onclick: 'ReadText();' %>
+	</p>
+	<p class="text-center">
+		<%= button_tag 'Clear', type: 'button', id: 'btnClear', onclick: 'ClearCanvas();' %>
+		<%= check_box_tag 'FullClear', '', false, title: 'This puts the position back at (0,0).', style: 'margin-top: -1px;' %>
+		<%= label_tag 'FullClear', 'Reset', title: 'This puts the position back at (0,0).' %>
+	</p>
+	</div>
+
+<div class='accordian well'>
+	<div class="row">
+		<p class="text-center">
+			<strong>Command Keys:</strong>
+			<br/>
+			Up: <%= text_field_tag 'UpKey', 'z', size: 1, maxlength: 1, class: 'CustomCommand' %>
+ 
+			Down: <%= text_field_tag 'DownKey', 'x', size: 1, maxlength: 1, class: 'CustomCommand' %>
+			<br/>
+			Left: <%= text_field_tag 'LeftKey', 'n', size: 1, maxlength: 1, class: 'CustomCommand' %>
+ 
+			Right: <%= text_field_tag 'RightKey', 'm', size: 1, maxlength: 1, class: 'CustomCommand' %>
+		</p>
+		<hr>
+		<p class="text-center">
+			<strong>Information:</strong>
+			<br/>
+			Current X: <%= label_tag 'xLabel', '0', id: 'xLabel' %>
+			<br/>
+			Current Y: <%= label_tag 'yLabel', '0', id: 'yLabel' %>
+		</p>
+	</div>
 </div>
-<button id="btnClear" class="" onclick="ClearCanvas()"> CLEAR </button> 
-        <input type="checkbox" id="FullClear" title="This puts the position back at (0,0). Useful if you want to rerun a copy/paste to 'undo' something."> Start over </input>

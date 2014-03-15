@@ -1,11 +1,12 @@
+<div class="text-center well">
 <%= form_for(@drawnew, remote: true) do |f| %>
- 
   <div>
-  <label id="Details" ></label>
-  <%= f.text_field :name, placeholder:'Sketch Name' %>
+  <label id="Details" class="text-error" ></label>
+  <%= f.text_field :name, placeholder:'New Sketch Name', style: 'width:90%;' %>
   <%= f.hidden_field :commands, value: "" %>
   <%= f.hidden_field :startx, value: "0" %>
   <%= f.hidden_field :starty, value: "0" %>
   </div>
   <%= f.submit "Save", class: "btn btn-large btn-primary" %>
 <% end %>
+</div>
