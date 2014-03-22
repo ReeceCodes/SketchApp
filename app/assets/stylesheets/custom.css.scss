@@ -1,25 +1,10 @@
 @import "bootstrap";
-
-/* canvas area, the div around it doesn't do anything but oh well */
-.canvas-holder 
-{
-  max-width: 70%;
-  max-height: 70%;
-    }
     
 canvas
 {
     border:1px solid black;
     }
     
-.footer
-{
-    height:10%;
-    min-height:10px;
-    clear:both;
-	margin-left: 50px;
-    }
-  
 /* buttons, everything with images/buttons below canvas */
 .commands 
 {
@@ -79,7 +64,15 @@ div > img /* first time using these selectors so I got that going for me (images
     height:50%;
     }
   
-.udbutton, .lrbutton
+.udbutton 
+{
+    clear:both;
+    min-height:100px;
+    margin-left:15px;
+	display:inline-block;
+    }
+
+.lrbutton
 {
     clear:both;
     min-height:100px;
@@ -110,7 +103,7 @@ div > img /* first time using these selectors so I got that going for me (images
     }
 
     
-.ubutton:hover /* and lbutton opposite for others */
+.ubutton:hover 
 , .lbutton:hover, .lbutton:active, .ubutton:active
 {
     background-position: 0px 0;
@@ -134,36 +127,6 @@ div > img /* first time using these selectors so I got that going for me (images
 	height:100%;
 }
 
-
-/* clear button */
-.clearButton
-{
-  float:left;
-  clear:both;
-  width:100%;
-    }
-    
-.lefty
-{
-    float:left;
-    min-width:25%;
-    width:10px;
-    height:1px;
-    }
-    
-.righty
-{
-    float:right;
-    min-width:45%;
-    width:10px;
-    height:1px;
-    }
-    
-.middle
-{
-    float:left;
-    }
-
 body {
 	padding-top: 80px;
 }
@@ -179,6 +142,7 @@ body {
 
 	height:620px;
 	overflow: scroll;
+	max-width:400px;
 }
 
 

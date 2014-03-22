@@ -6,6 +6,6 @@
 $(document).ready ->
   $("#new_drawing").on("ajax:success", (e, data, status, xhr) ->
     (location.reload();)
-  ).bind "ajax:error", (e, xhr, status, error) ->
+  ).on "ajax:error", (e, xhr, status, error) ->
     $("#Details").text(xhr.responseText)
 	

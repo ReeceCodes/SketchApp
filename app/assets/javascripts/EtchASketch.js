@@ -203,7 +203,6 @@ function SetUp() {
     window.addEventListener("keypress", CaptureKey, false); //on screen keyboard not handled, what about keydown instead? while keydown call keypress, when keyup stop event? or will keydown work the same as keypress...
     theCircleOfStuff = new circle(0, 0, "can", 1, 0.5);
 
-	
 	var txt = document.getElementById("keys");
 	txt.addEventListener("keypress", function(e) {e.preventDefault()}, false); //don't type the keystrokes inside the textarea so it doesn't double type keys
 	

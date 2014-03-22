@@ -2,16 +2,13 @@
 <div id="drawings" class="row">
     <% @drawings.each do |drawing| %>
 	<div class="col-sm-4 text-center">
-        <p>ID: <%= drawing.id %></p>
-        <p>Name: <%= drawing.name %></p>
+        <p><strong>ID:</strong> <%= drawing.id %></p>
+        <p><strong>Name:</strong> <%= drawing.name %></p>
         <p style="display:none;"><%= drawing.commands %></p>
         <p><canvas id="<%= drawing.id %>" width="150px" height="100px" /></p>
-		<p><%= link_to 'View', drawing %></p>
 	</div>
 
-
-  
-<script type="text/javascript">
+<script>
 	RunCommands('<%= drawing.commands %>', '<%= drawing.id %>', <%= drawing.startx %>, <%= drawing.starty %>, 0.2, 0.1);
   </script>
 

@@ -1,7 +1,7 @@
 <div class="text-center well">
 <%= form_for(@drawnew, remote: true) do |f| %>
   <div>
-  <label id="Details" class="text-error" ></label>
+  <%= label_tag '', '', class: 'text-error', id:'Details'  %>
   <%= f.text_field :name, placeholder:'New Sketch Name', style: 'width:90%;' %>
   <%= f.hidden_field :commands, value: "" %>
   <%= f.hidden_field :startx, value: "0" %>

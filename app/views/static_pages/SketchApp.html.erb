@@ -6,38 +6,36 @@
 		<%= render 'shared/drawing' %>
 		</div>
 	</div>
-<div class="clearfix visible-sm"></div>
- <div class="col-lg-7 col-sm-offset-1">
- <canvas id="can" class="EAS" width="750" height="500" ></canvas> 
- <!-- this cleared it way up, the height/width on element directly affect the pixel number
- that means that I can't resize it without using some js and listening for resize events. not worth it for now.
-  http://stackoverflow.com/questions/5034529/size-of-html5-canvas-via-css-versus-element-attributes -->
 
-
-<div class="row">
-<div class="col-lg-8">
-    <div class="leftright">
-        <div class="lrbutton">
-            <div class="lbutton" onmousedown="IMGDown(this, event);" title="Left" ></div>
-            <div class="rbutton" onmousedown="IMGDown(this,event);" title="Right" ></div>
-        </div>
-
-        <div class="arrowsleftright"><span id="left_key">N</span> &lArr;<%= image_tag "arrows.png" %><span id="right_key">M</span> &rArr;</div>
-    </div>
-
-    <div class="updown">
-        <div class="udbutton">
-            <div class="ubutton"  onmousedown="IMGDown(this, event);" title="Up" ></div>
-            <div class="dbutton"  onmousedown="IMGDown(this, event);" title="Down" ></div>
-        </div>
-    
-        <div class="arrowsupdown"><span id="up_key">Z</span> &uArr;<%= image_tag "arrows.png", :class=>"rotate" %><span id="down_key">X</span> &dArr;</div>
-    </div>
+<div style="text-align:center;">
+	<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+	<canvas id="can" class="EAS" width="750" height="500" ></canvas> 
+	<!-- this cleared it way up, the height/width on element directly affect the pixel number
+	that means that I can't resize it without using some js and listening for resize events. not worth it for now.
+	http://stackoverflow.com/questions/5034529/size-of-html5-canvas-via-css-versus-element-attributes -->
+	
+		<div class="row">
+			<div class="leftright">
+					<div class="lrbutton">
+						<div class="lbutton" onmousedown="IMGDown(this, event);" title="Left" ></div>
+						<div class="rbutton" onmousedown="IMGDown(this,event);" title="Right" ></div>
+					</div>
+			
+					<div class="arrowsleftright"><span id="left_key">N</span> &lArr;<%= image_tag "arrows.png" %><span id="right_key">M</span> &rArr;</div>
+				</div>
+		
+				<div class="updown">
+					<div class="udbutton">
+						<div class="ubutton"  onmousedown="IMGDown(this, event);" title="Up" ></div>
+						<div class="dbutton"  onmousedown="IMGDown(this, event);" title="Down" ></div>
+					</div>
+			
+					<div class="arrowsupdown"><span id="up_key">Z</span> &uArr;<%= image_tag "arrows.png", :class=>"rotate" %><span id="down_key">X</span> &dArr;</div>
+			</div>
+		</div>
+	</div>
 </div>
-</div>
-
-</div>
-<div class="clearfix visible-sm"></div>
+<div class="clearfix visible-xs visible-sm visible-md"></div>
 <div id="right_sidebar" class="col-sm-2">
 	<%= render 'shared/drawing_save' %>
 	<%= render 'shared/commands_on_right' %>

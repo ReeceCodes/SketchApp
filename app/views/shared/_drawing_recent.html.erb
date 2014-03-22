@@ -8,8 +8,8 @@
   <canvas id="<%= d.id %>" width="150px" height="100px" style="cursor:pointer;" title="Click to draw onto the larger image." onclick="RunCommands('<%= d.commands %>', 'can', <%= d.startx %>, <%= d.starty %>, 1, 0.5);" />
   
 </p>
-<script type="text/javascript">
+<script>
 	RunCommands('<%= d.commands %>', '<%= d.id %>', <%= d.startx %>, <%= d.starty %>, 0.2, 0.1);
-  </script>
+</script>
 
 <% end %>
