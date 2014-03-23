@@ -4,7 +4,7 @@
 		<%= text_area_tag 'keys', '', class: 'commands', autocomplete:'off' %>
 	</p>
 	<p class="text-center">
-		<%= button_tag 'Run Commands', type: 'button', id: 'btnRerun', title: 'This runs the commands from the current point. This moves the position but does NOT add to the commands.', onclick: 'ReadText();' %>
+		<%= button_tag 'Run Commands', type: 'button', id: 'btnRerun', title: 'This runs the commands from the current point and adds them to the list again. So pretty much the same as copying and pasting it.', onclick: 'ReadText();' %>
 	</p>
 	<p class="text-center">
 		<%= button_tag 'Clear', type: 'button', id: 'btnClear', onclick: 'ClearCanvas();' %>

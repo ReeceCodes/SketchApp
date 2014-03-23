@@ -2,7 +2,7 @@
 <%= form_for(@drawnew, remote: true) do |f| %>
   <div>
   <%= label_tag '', '', class: 'text-error', id:'Details'  %>
-  <%= f.text_field :name, placeholder:'New Sketch Name', style: 'width:90%;' %>
+  <%= f.text_field :name, placeholder:'New Sketch Name', style: 'width:90%;height:25px;' %>
   <%= f.hidden_field :commands, value: "" %>
   <%= f.hidden_field :startx, value: "0" %>
   <%= f.hidden_field :starty, value: "0" %>

@@ -207,7 +207,7 @@ function SetUp() {
 	txt.addEventListener("keypress", function(e) {e.preventDefault()}, false); //don't type the keystrokes inside the textarea so it doesn't double type keys
 	
 	//for pasting
-	$(txt).bind('input propertychange', function() {CheckPaste(this);});
+	$(txt).on('input propertychange', function() {CheckPaste(this);});
 	
 	//not all browsers were clearing the textarea even with autocomplete off so make sure each refresh empties it
 	$(txt).val('');
@@ -321,7 +321,14 @@ function ReadText() {
 //not using onchange bc I write to it so using button click
     var txt = document.getElementById("keys");
 
+	if (txt.value == ""){
+		return;
+	}
+	
     ReadKeys(txt.value);
+
+	txt.value += ',' + txt.value;
+	SetSaveValues();
 }
 
 function RunCommands(cmds, canvas, startx, starty, scale,r) {
